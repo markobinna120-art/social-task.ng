@@ -70,24 +70,10 @@ body{background:#f6faf6}
 </div>
   </div>
   <div id="home" class="page hidden">
-<div style="display:flex;justify-content:space-between;align-items:center;margin:6px 4px 10px">
-<h2 style="font-weight:900;font-size:26px">Home</h2>
-<button onclick="showPage('post')" style="width:38px;height:38px;border-radius:50%;background:#0e5a00;color:#fff;border:none;font-size:22px;font-weight:800">+</button>
-</div>
-
-<div class="card" style="background:#f0f8ef;border-radius:20px;padding:16px;border:1px solid #e0eee0">
-<div><small style="color:#555">Earning balance ⓘ</small><br><b style="font-size:28px"><span id="avBal">0</span></b></div>
-<div style="margin-top:12px"><small style="color:#555">Pending balance: </small><b style="font-size:20px"><span id="pdBal">0</span></b> <small style="color:#666">(need admin approve)</small></div>
-<button onclick="showPage('withdraw')" style="width:100%;margin-top:14px;padding:14px;background:#0e7a00;color:#fff;border:none;border-radius:30px;font-weight:800;font-size:16px">↗ Withdraw</button>
-</div>
-
-<div style="display:flex;justify-content:space-between;align-items:center;margin:18px 4px 10px">
-<h4 style="font-weight:800">Suggested tasks</h4>
-<span onclick="showPage('tasks')" style="color:#0ea500;font-weight:700;font-size:13px;cursor:pointer">View more ›</span>
-</div>
-
+<div class="card"><div style="display:flex;justify-content:space-between"><div><small>Available</small><br><b id="avBal">₦0</b></div><div><small>Pending</small><br><b id="pdBal">₦0</b></div><div><small>Posting</small><br><b id="postDep">₦0</b></div></div></div>
+<h4>Tasks For You</h4>
 <div id="homeTasks"></div>
-  </div>
+</div>
 <div id="tasks" class="page hidden">
 <h3>All Tasks</h3>
 <div id="allTasks"></div>
@@ -114,8 +100,26 @@ body{background:#f6faf6}
 <div id="priceInfo" style="background:#f0fff0;padding:10px;border-radius:12px;margin:8px 0">You will pay: <b>₦0</b></div>
 <button onclick="createTask()" class="post-btn">Post Now</button>
 </div>
-                                                                                                 </div>
-<div id="deposit" class="page hidden">
+  </div>
+ <div id="deposit" class="page hidden">
+<div class="card">
+<h3>Deposit</h3>
+
+<!-- 58950976-->
+<div style="background:#f0f8ef;border:2px dashed #0ea500;border-radius:16px;padding:14px;margin:12px 0;text-align:center">
+<small style="color:#555">Pay To This Account</small><br>
+<b style="font-size:22px">5895097608</b><br>
+<b>Moniepoint</b><br>
+<span style="font-weight:700">Ugochi Patricia Etumugo</span>
+</div>
+
+<p>Posting Balance: <b id="depBalText">₦0</b></p>
+<input id="dName" placeholder="Account Name" style="width:100%;padding:12px;margin:6px 0;border-radius:12px;border:1px solid #ddd">
+<input id="dAmt" type="number" placeholder="Amount" style="width:100%;padding:12px;margin:6px 0;border-radius:12px;border:1px solid #ddd">
+<button onclick="submitDeposit()" style="width:100%;padding:12px;background:#0ea500;color:#fff;border:none;border-radius:12px;margin-top:8px">Submit Deposit</button>
+</div>
+<div class="card"><h4>My Deposits</h4><div id="myDeposits"></div></div>
+  </div>
 <div class="card"><h3>Deposit</h3><p>Posting Balance: <b id="depBalText">₦0</b></p><input id="dName" placeholder="Account Name" style="width:100%;padding:12px;margin:6px 0;border-radius:12px;border:1px solid #ddd"><input id="dAmt" type="number" placeholder="Amount" style="width:100%;padding:12px;margin:6px 0;border-radius:12px;border:1px solid #ddd"><button onclick="submitDeposit()" style="width:100%;padding:12px;background:#0ea500;color:#fff;border:none;border-radius:12px;margin-top:8px">Submit Deposit</button></div>
 <div class="card"><h4>My Deposits</h4><div id="myDeposits"></div></div>
 </div>
@@ -129,7 +133,7 @@ body{background:#f6faf6}
 <div id="admin" class="page hidden">
 <div class="card" style="display:flex;gap:6px;flex-wrap:wrap"><button onclick="showAdmin('users')" style="padding:8px 12px;border-radius:20px;border:1px solid #0ea500">Users</button><button onclick="showAdmin('pendingBal')" style="padding:8px 12px;border-radius:20px;border:1px solid #0ea500">Pending Bal</button><button onclick="showAdmin('proofs')" style="padding:8px 12px;border-radius:20px;border:1px solid #0ea500">Proofs</button><button onclick="showAdmin('depositsAdmin')" style="padding:8px 12px;border-radius:20px;border:1px solid #0ea500">Deposits</button><button onclick="showAdmin('withdrawalsAdmin')" style="padding:8px 12px;border-radius:20px;border:1px solid #0ea500">Withdrawals</button><button onclick="showAdmin('allTasksAdmin')" style="padding:8px 12px;border-radius:20px;border:1px solid #0ea500">All Tasks</button></div>
 <div class="card" id="adminContent"></div>
-  </div>
+                                                                                                                                                </div>
   <div id="taskPopup" class="popup"><div class="popup-box"><h3 id="popTitle"></h3><a id="popLink" target="_blank" style="color:#0ea500;font-weight:800">Open Task Link</a><div id="popCustomList"></div><input id="popHandle" placeholder="Your username/handle" style="width:100%;padding:12px;margin:10px 0;border-radius:12px;border:1px solid #ddd"><input id="popFile" type="file" accept="image/*" style="width:100%;margin:8px 0"><div style="display:flex;gap:8px"><button onclick="closePopup('taskPopup')" style="flex:1;padding:12px;border-radius:12px;border:1px solid #ddd">Cancel</button><button onclick="submitProof()" style="flex:1;padding:12px;background:#0ea500;color:#fff;border:none;border-radius:12px">Submit Proof</button></div></div></div>
 <div id="successPopup" class="popup"><div class="popup-box" style="text-align:center"><h3>✅ Submitted!</h3><p>Your proof is pending verification</p><button onclick="closePopup('successPopup')" style="width:100%;padding:12px;background:#0ea500;color:#fff;border:none;border-radius:12px;margin-top:10px">OK</button></div></div>
 <div id="lowBalPopup" class="popup"><div class="popup-box" style="text-align:center"><h3>Low Posting Balance</h3><p>Deposit to post tasks</p><div style="display:flex;gap:8px;margin-top:10px"><button onclick="closePopup('lowBalPopup')" style="flex:1;padding:12px;border-radius:12px;border:1px solid #ddd">Cancel</button><button onclick="goToDepositFromLowBal()" style="flex:1;padding:12px;background:#0ea500;color:#fff;border:none;border-radius:12px">Deposit</button></div></div></div>
@@ -142,4 +146,4 @@ body{background:#f6faf6}
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <script src="app.js?v=9999"></script>
 </body>
-  </html>
+</html>
